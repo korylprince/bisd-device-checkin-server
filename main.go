@@ -38,5 +38,5 @@ func main() {
 
 	log.Println("Listening on:", config.ListenAddr)
 
-	log.Println(http.ListenAndServe(config.ListenAddr, s.Router()))
+	log.Println(http.ListenAndServe(config.ListenAddr, http.StripPrefix(config.Prefix, s.Router())))
 }
