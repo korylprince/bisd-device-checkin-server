@@ -10,46 +10,30 @@ import (
 
 //Config represents options given in the environment
 type Config struct {
-	SessionExpiration int //in minutes; default: 60
+	SessionExpiration int `default:"15"` //in minutes
 
-	LDAPServer   string //required
-	LDAPPort     int    //default: 389
-	LDAPBaseDN   string //required
-	LDAPGroup    string //optional
-	LDAPSecurity string //default: none
+	LDAPServer   string `required:"true"`
+	LDAPPort     int    `default:"389" required:"true"`
+	LDAPBaseDN   string `required:"true"`
+	LDAPGroup    string `required:"true"`
+	LDAPSecurity string `default:"none" required:"true"`
 	ldapSecurity auth.SecurityType
 
-	SQLDriver string //required
-	SQLDSN    string //required
+	SQLDriver string `required:"true"`
+	SQLDSN    string `required:"true"`
 
-	ListenAddr string //addr format used for net.Dial; required
+	ListenAddr string `default:":8080" required:"true"` //addr format used for net.Dial; required
 	Prefix     string //url prefix to mount api to without trailing slash
+	Debug      bool   `default:"false"` //return debugging information to client
 }
 
 var config = &Config{}
-
-func checkEmpty(val, name string) {
-	if val == "" {
-		log.Fatalf("INVENTORY_%s must be configured\n", name)
-	}
-}
 
 func init() {
 	err := envconfig.Process("INVENTORY", config)
 	if err != nil {
 		log.Fatalln("Error reading configuration from environment:", err)
 	}
-
-	if config.SessionExpiration == 0 {
-		config.SessionExpiration = 60
-	}
-	checkEmpty(config.LDAPServer, "LDAPSERVER")
-
-	if config.LDAPPort == 0 {
-		config.LDAPPort = 389
-	}
-
-	checkEmpty(config.LDAPBaseDN, "LDAPBASEDN")
 
 	switch strings.ToLower(config.LDAPSecurity) {
 	case "", "none":
@@ -62,12 +46,7 @@ func init() {
 		log.Fatalln("Invalid INVENTORY_LDAPSECURITY:", config.LDAPSecurity)
 	}
 
-	checkEmpty(config.SQLDriver, "SQLDRIVER")
-	checkEmpty(config.SQLDSN, "SQLDSN")
-
 	if config.SQLDriver == "mysql" && !strings.Contains(config.SQLDSN, "?parseTime=true") {
 		log.Fatalln("mysql DSN must contain \"?parseTime=true\"")
 	}
-
-	checkEmpty(config.ListenAddr, "LISTENADDR")
 }
