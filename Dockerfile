@@ -1,4 +1,4 @@
-FROM golang:1.10-alpine as builder
+FROM golang:1.12-alpine as builder
 
 ARG VERSION
 
@@ -13,7 +13,7 @@ RUN git clone --branch "$VERSION" --single-branch --depth 1 \
 RUN go install github.com/korylprince/fileenv
 RUN go install github.com/korylprince/bisd-device-checkin-server
 
-FROM alpine:3.7
+FROM alpine:3.9
 
 RUN apk add --no-cache ca-certificates
 

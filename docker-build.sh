@@ -1,7 +1,17 @@
 #!/bin/bash
+set -e
 
 version=$1
 
-docker build --no-cache --build-arg "VERSION=$version" --tag "korylprince/bisd-device-checkin-server:$version" .
+tag="korylprince/bisd-device-checkin-server"
 
-docker push "korylprince/bisd-device-checkin-server:$version"
+cred=$(cat ~/.git-credentials)
+
+docker build --no-cache --build-arg "VERSION=$version" --tag "$tag:$version" .
+
+docker push "$tag:$version"
+
+if [ "$2" = "latest" ]; then
+    docker tag "$tag:$version" "$tag:latest"
+    docker push "$tag:latest"
+fi
