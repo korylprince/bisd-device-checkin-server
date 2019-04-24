@@ -11,7 +11,7 @@ import (
 	"github.com/gorilla/handlers"
 	"github.com/korylprince/bisd-device-checkin-server/api"
 	"github.com/korylprince/bisd-device-checkin-server/httpapi"
-	auth "github.com/korylprince/go-ad-auth"
+	auth "gopkg.in/korylprince/go-ad-auth.v2"
 )
 
 func main() {
@@ -27,7 +27,7 @@ func main() {
 			BaseDN:   config.LDAPBaseDN,
 			Security: config.ldapSecurity,
 		},
-		Group: config.LDAPGroup,
+		Groups: []string{config.LDAPGroup},
 	}
 
 	s := httpapi.NewMemorySessionStore(time.Minute * time.Duration(config.SessionExpiration))

@@ -1,15 +1,16 @@
 package api
 
 import (
+	"errors"
 	"fmt"
 
-	auth "github.com/korylprince/go-ad-auth"
+	auth "gopkg.in/korylprince/go-ad-auth.v2"
 )
 
 //AuthConfig holds configuration for connecting to an authentication source
 type AuthConfig struct {
 	ADConfig *auth.Config
-	Group    string
+	Groups   []string
 }
 
 //User represents an Active Directory User
@@ -21,18 +22,18 @@ type User struct {
 //Authenticate authenticates the given username and password against the given config,
 //returning user information if successful, nil if unsuccessful, or an error if one occurred.
 func Authenticate(config *AuthConfig, username, password string) (*User, error) {
-	status, attrs, err := auth.LoginWithAttrs(username, password, config.Group, config.ADConfig, []string{"displayName"})
+	status, entry, groups, err := auth.AuthenticateExtended(config.ADConfig, username, password, []string{"displayName"}, config.Groups)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("Error attempting to authenticate: %v", err)
 	}
 
 	if !status {
-		return nil, nil
+		return nil, errors.New("User not authenticated")
 	}
 
-	if attrs == nil || len(attrs["displayName"]) != 1 || attrs["displayName"][0] == "" {
-		return nil, fmt.Errorf("displayName doesn't exist for username: %s", username)
+	if len(groups) == 0 {
+		return nil, errors.New("User not in any authorized groups")
 	}
 
-	return &User{Username: username, DisplayName: attrs["displayName"][0]}, nil
+	return &User{Username: username, DisplayName: entry.GetAttributeValue("displayName")}, nil
 }

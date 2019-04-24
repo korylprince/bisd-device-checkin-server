@@ -28,9 +28,6 @@ func handleAuthenticate(config *api.AuthConfig, s SessionStore) returnHandler {
 		if err != nil {
 			return handleError(http.StatusUnauthorized, fmt.Errorf("Could not authenticate user %s: %v", req.Username, err))
 		}
-		if user == nil {
-			return handleError(http.StatusUnauthorized, errors.New("Bad username or password"))
-		}
 
 		key, err := s.Create(user)
 		if err != nil {
