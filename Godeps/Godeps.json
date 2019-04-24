@@ -9,9 +9,9 @@
 			"Rev": "1a676ac6e4dce68e9303a1800773861350374a9e"
 		},
 		{
-			"ImportPath": "github.com/gorilla/handlers",
-			"Comment": "v1.3.0",
-			"Rev": "90663712d74cb411cbef281bc1e08c19d1a76145"
+			"ImportPath": "github.com/gofrs/uuid",
+			"Comment": "v3.1.1-6-g48eeef7",
+			"Rev": "48eeef780dd5510f08637709bf3e700fc00f4f10"
 		},
 		{
 			"ImportPath": "github.com/gorilla/mux",
