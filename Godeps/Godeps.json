@@ -1,6 +1,6 @@
 {
 	"ImportPath": "github.com/korylprince/bisd-device-checkin-server",
-	"GoVersion": "go1.10",
+	"GoVersion": "go1.12",
 	"GodepVersion": "v80",
 	"Deps": [
 		{
@@ -24,13 +24,49 @@
 			"Rev": "b2c5c876e2659d9060d82e9b8494150d53854cc4"
 		},
 		{
-			"ImportPath": "github.com/korylprince/go-ad-auth",
-			"Rev": "c56f3908b4d8f5351dca5fa6d70ec5b0d7bed9b9"
+			"ImportPath": "golang.org/x/text/encoding",
+			"Comment": "v0.3.1",
+			"Rev": "c942b20a5d85b458c4dce1589326051d85e25d6d"
+		},
+		{
+			"ImportPath": "golang.org/x/text/encoding/internal",
+			"Comment": "v0.3.1",
+			"Rev": "c942b20a5d85b458c4dce1589326051d85e25d6d"
+		},
+		{
+			"ImportPath": "golang.org/x/text/encoding/internal/identifier",
+			"Comment": "v0.3.1",
+			"Rev": "c942b20a5d85b458c4dce1589326051d85e25d6d"
+		},
+		{
+			"ImportPath": "golang.org/x/text/encoding/unicode",
+			"Comment": "v0.3.1",
+			"Rev": "c942b20a5d85b458c4dce1589326051d85e25d6d"
+		},
+		{
+			"ImportPath": "golang.org/x/text/internal/utf8internal",
+			"Comment": "v0.3.1",
+			"Rev": "c942b20a5d85b458c4dce1589326051d85e25d6d"
+		},
+		{
+			"ImportPath": "golang.org/x/text/runes",
+			"Comment": "v0.3.1",
+			"Rev": "c942b20a5d85b458c4dce1589326051d85e25d6d"
+		},
+		{
+			"ImportPath": "golang.org/x/text/transform",
+			"Comment": "v0.3.1",
+			"Rev": "c942b20a5d85b458c4dce1589326051d85e25d6d"
 		},
 		{
 			"ImportPath": "gopkg.in/asn1-ber.v1",
 			"Comment": "v1.2",
 			"Rev": "379148ca0225df7a432012b8df0355c2a2063ac0"
+		},
+		{
+			"ImportPath": "gopkg.in/korylprince/go-ad-auth.v2",
+			"Comment": "v2.1.1",
+			"Rev": "2c1a6d8ba1d783acf3b062355e8f4b075686810f"
 		},
 		{
 			"ImportPath": "gopkg.in/ldap.v2",
