@@ -12,6 +12,26 @@ import (
 	"github.com/korylprince/bisd-device-checkin-server/api"
 )
 
+//Charge represents a charge for a damaged/missing device
+type Charge struct {
+	Description string  `json:"description"`
+	Value       float32 `json:"value"`
+}
+
+//Charges is a list of Charges
+type Charges []Charge
+
+//Marshal marshals charges to the inventory database format
+func (charges Charges) Marshal() string {
+	s := []string{"|"}
+	for _, c := range charges {
+		//clean input
+		desc := strings.Replace(strings.Replace(strings.TrimSpace(c.Description), "|", "", -1), ":", "", -1)
+		s = append(s, fmt.Sprintf("%s:%.2f|", desc, c.Value))
+	}
+	return strings.Join(s, "")
+}
+
 //GET /devices/:bagTag
 func handleReadDevice(w http.ResponseWriter, r *http.Request) *handlerResponse {
 	bagTag := mux.Vars(r)["bagTag"]
@@ -29,10 +49,18 @@ func handleReadDevice(w http.ResponseWriter, r *http.Request) *handlerResponse {
 
 //POST /devices/:bagTag/checkin
 func handleCheckinDevice(w http.ResponseWriter, r *http.Request) *handlerResponse {
+	type request struct {
+		Charges Charges `json:"charges"`
+	}
+
+	type response struct {
+		ChargeID int64 `json:"charge_id"`
+	}
+
 	bagTag := mux.Vars(r)["bagTag"]
 
 	//read charges
-	var req *CheckinRequest
+	var req *request
 	d := json.NewDecoder(r.Body)
 
 	err := d.Decode(&req)
@@ -100,8 +128,8 @@ func handleCheckinDevice(w http.ResponseWriter, r *http.Request) *handlerRespons
 			return resp
 		}
 
-		return &handlerResponse{Code: http.StatusOK, Body: &CheckinResponse{ChargeID: id}}
+		return &handlerResponse{Code: http.StatusOK, Body: &response{ChargeID: id}}
 	}
 
-	return &handlerResponse{Code: http.StatusOK, Body: &CheckinResponse{ChargeID: 0}}
+	return &handlerResponse{Code: http.StatusOK, Body: &response{ChargeID: 0}}
 }

@@ -11,8 +11,18 @@ import (
 
 //POST /auth
 func handleAuthenticate(config *api.AuthConfig, s SessionStore) returnHandler {
+	type request struct {
+		Username string `json:"username"`
+		Password string `json:"password"`
+	}
+
+	type response struct {
+		SessionKey string    `json:"session_key"`
+		User       *api.User `json:"user"`
+	}
+
 	return func(w http.ResponseWriter, r *http.Request) *handlerResponse {
-		var req *AuthenticateRequest
+		var req *request
 		d := json.NewDecoder(r.Body)
 
 		err := d.Decode(&req)
@@ -34,6 +44,6 @@ func handleAuthenticate(config *api.AuthConfig, s SessionStore) returnHandler {
 			return handleError(http.StatusInternalServerError, fmt.Errorf("Could not create session: %v", err))
 		}
 
-		return &handlerResponse{Code: http.StatusOK, Body: &AuthenticateResponse{SessionKey: key, User: user}}
+		return &handlerResponse{Code: http.StatusOK, Body: &response{SessionKey: key, User: user}}
 	}
 }
