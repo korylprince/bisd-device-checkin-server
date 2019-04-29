@@ -129,7 +129,7 @@ func (s *Server) checkinDevice(r *http.Request, tx *sql.Tx) (int, interface{}) {
 	}
 
 	//create charge
-	if len(req.Charges) > 0 {
+	if req.Charges.Total() > 0 {
 
 		id, err := s.db.CreateCharge(tx, req.Charges, device.InventoryNumber, devUser,
 			fmt.Sprintf("Charges created %s by %s.\n%s", time.Now().Format("01/02/06"), user.DisplayName, req.Notes),

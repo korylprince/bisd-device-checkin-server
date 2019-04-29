@@ -9,7 +9,7 @@ import (
 //Charge represents a charge for a damaged/missing device
 type Charge struct {
 	Description string  `json:"description"`
-	Value       float32 `json:"value"`
+	Amount      float32 `json:"amount"`
 }
 
 //Charges is a list of Charges
@@ -20,10 +20,19 @@ func (charges Charges) Marshal() string {
 	s := []string{"|"}
 	for _, c := range charges {
 		//clean input
-		desc := strings.Replace(strings.Replace(strings.TrimSpace(c.Description), "|", "", -1), ":", "", -1)
-		s = append(s, fmt.Sprintf("%s:%.2f|", desc, c.Value))
+		desc := strings.Replace(strings.Replace(strings.TrimSpace(c.Description), "|", ";", -1), ":", ";", -1)
+		s = append(s, fmt.Sprintf("%s:%.2f|", desc, c.Amount))
 	}
 	return strings.Join(s, "")
+}
+
+//Total returns the total charge amount
+func (charges Charges) Total() float32 {
+	var t float32
+	for _, c := range charges {
+		t += c.Amount
+	}
+	return t
 }
 
 //Device represents a device in the inventory database
