@@ -85,9 +85,9 @@ func (s *Server) checkinDevice(r *http.Request, tx *sql.Tx) (int, interface{}) {
 	//update notes
 	var fmtStr string
 	if req.Missing {
-		fmtStr = "\n%s %s: Bag Tag %s from %s is Missing\n"
+		fmtStr = "\n%s %s: Chromebook (Bag Tag %s) checked out to %s is Missing\n"
 	} else {
-		fmtStr = "\n%s %s: Checked in Bag Tag %s from %s\n"
+		fmtStr = "\n%s %s: Checked in Chromebook (Bag Tag %s) from %s\n"
 	}
 
 	device.Notes += fmt.Sprintf(fmtStr,
