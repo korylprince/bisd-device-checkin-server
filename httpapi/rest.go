@@ -14,6 +14,10 @@ import (
 )
 
 func (s *Server) readDevice(r *http.Request, tx *sql.Tx) (int, interface{}) {
+	type errResponse struct {
+		Error string `json:"error"`
+	}
+
 	bagTag := mux.Vars(r)["id"]
 
 	device, err := s.db.ReadDevice(tx, bagTag)
@@ -23,6 +27,14 @@ func (s *Server) readDevice(r *http.Request, tx *sql.Tx) (int, interface{}) {
 
 	if device == nil {
 		return http.StatusNotFound, errors.New("Could not find device")
+	}
+
+	if device.Status != "Checked Out" {
+		return http.StatusBadRequest, &errResponse{Error: "Device not checked out"}
+	}
+
+	if strings.TrimSpace(device.User) == "" {
+		return http.StatusBadRequest, &errResponse{Error: "Device has no assigned user"}
 	}
 
 	return http.StatusOK, device
