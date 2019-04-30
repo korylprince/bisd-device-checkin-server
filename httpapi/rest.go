@@ -13,10 +13,15 @@ import (
 	"github.com/korylprince/bisd-device-checkin-server/session"
 )
 
+type errResponse struct {
+	Err string `json:"error"`
+}
+
+func (e *errResponse) Error() string {
+	return e.Err
+}
+
 func (s *Server) readDevice(r *http.Request, tx *sql.Tx) (int, interface{}) {
-	type errResponse struct {
-		Error string `json:"error"`
-	}
 
 	bagTag := mux.Vars(r)["id"]
 
@@ -30,11 +35,11 @@ func (s *Server) readDevice(r *http.Request, tx *sql.Tx) (int, interface{}) {
 	}
 
 	if device.Status != "Checked Out" {
-		return http.StatusBadRequest, &errResponse{Error: "Device not checked out"}
+		return http.StatusBadRequest, &errResponse{Err: "Device not checked out"}
 	}
 
 	if strings.TrimSpace(device.User) == "" {
-		return http.StatusBadRequest, &errResponse{Error: "Device has no assigned user"}
+		return http.StatusBadRequest, &errResponse{Err: "Device has no assigned user"}
 	}
 
 	return http.StatusOK, device

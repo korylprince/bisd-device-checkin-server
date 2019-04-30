@@ -24,13 +24,15 @@ func withJSONResponse(next returnHandlerFunc) http.Handler {
 
 		if err, ok := body.(error); ok || body == nil {
 			resp := jsonResponse{Code: code, Description: http.StatusText(code)}
+			body = resp
 			if err != nil {
 				(r.Context().Value(contextKeyLogData)).(*logData).Error = err.Error()
-				if Debug {
+				if er, ok := err.(*errResponse); ok {
+					body = er
+				} else if Debug {
 					resp.Debug = err.Error()
 				}
 			}
-			body = resp
 		}
 
 		w.Header().Set(headerContentType, "application/json")
