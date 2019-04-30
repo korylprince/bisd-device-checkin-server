@@ -12,6 +12,7 @@ Create a MySQL database with `model.sql`. (This matches [pyInventory](https://gi
 
 # Configuration
 
+    INVENTORY_SESSIONEXPIRATION="15" #in minutes
     INVENTORY_LDAPSERVER="ad1.example.com"
     INVENTORY_LDAPPORT="389"
     INVENTORY_LDAPBASEDN="OU=base,DC=example,DC=com"
@@ -21,3 +22,4 @@ Create a MySQL database with `model.sql`. (This matches [pyInventory](https://gi
     INVENTORY_SQLDSN="username:password@tcp(server:3306)/database?parseTime=true"
     INVENTORY_LISTENADDR=":8080"
     INVENTORY_PREFIX="/inventory" #URL prefix
+    INVENTORY_DEBUG="false"
