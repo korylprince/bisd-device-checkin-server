@@ -51,7 +51,7 @@ func (d *DB) CreateCharge(tx *sql.Tx, charges db.Charges, inventoryNumber, user,
 func (d *DB) ReadDevice(tx *sql.Tx, bagTag string) (*db.Device, error) {
 	device := &db.Device{BagTag: bagTag}
 
-	row := tx.QueryRow("SELECT id, inventory_number, serial_number, status, model, user, notes FROM devices WHERE bag_tag=? AND (model = 'C740-C4PE' OR model = 'C732T-C8VY');", bagTag)
+	row := tx.QueryRow("SELECT id, inventory_number, serial_number, status, model, user, notes FROM devices WHERE bag_tag=? AND (model = 'C732T-C8VY' OR model = 'Chromebook 3100');", bagTag)
 
 	err := row.Scan(
 		&(device.ID),
