@@ -73,8 +73,8 @@ func (d *DB) ReadDevice(tx *sql.Tx, bagTag string) (*db.Device, error) {
 	return device, nil
 }
 
-//UpdateDevice updates the given Device or returns an error if one occurred
-func (d *DB) UpdateDevice(tx *sql.Tx, device *db.Device) error {
+//UpdateDevice updates the given Device by the given username or returns an error if one occurred
+func (d *DB) UpdateDevice(tx *sql.Tx, device *db.Device, username string) error {
 	_, err := tx.Exec("UPDATE devices SET status=?, user=?, notes=? WHERE id=?",
 		device.Status,
 		device.User,
@@ -83,6 +83,18 @@ func (d *DB) UpdateDevice(tx *sql.Tx, device *db.Device) error {
 	)
 	if err != nil {
 		return fmt.Errorf("Unable to update Device: %v", err)
+	}
+
+	if device.Status == "Missing" {
+		return nil
+	}
+
+	_, err = tx.Exec("INSERT INTO verifications(device_id, username, date) VALUES(?, ?, NOW());",
+		device.ID,
+		username,
+	)
+	if err != nil {
+		return fmt.Errorf("Unable to add Verification: %v", err)
 	}
 
 	return nil

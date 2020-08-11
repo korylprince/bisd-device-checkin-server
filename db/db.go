@@ -58,6 +58,6 @@ type DB interface {
 	//ReadDevice returns the Device with with the given bagTag or an error if one occurred
 	ReadDevice(tx *sql.Tx, bagTag string) (*Device, error)
 
-	//UpdateDevice updates the given Device or returns an error if one occurred
-	UpdateDevice(tx *sql.Tx, device *Device) error
+	//UpdateDevice updates the given Device by the given username or returns an error if one occurred
+	UpdateDevice(tx *sql.Tx, device *Device, username string) error
 }

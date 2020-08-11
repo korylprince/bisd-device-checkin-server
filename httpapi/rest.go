@@ -128,7 +128,7 @@ func (s *Server) checkinDevice(r *http.Request, tx *sql.Tx) (int, interface{}) {
 	}
 
 	//update device
-	err = s.db.UpdateDevice(tx, device)
+	err = s.db.UpdateDevice(tx, device, user.Username)
 	if err != nil {
 		return http.StatusInternalServerError, err
 	}
