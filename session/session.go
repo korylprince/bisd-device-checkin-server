@@ -1,6 +1,6 @@
 package session
 
-import "github.com/korylprince/bisd-device-checkin-server/auth"
+import "github.com/korylprince/bisd-device-checkin-server/v2/auth"
 
 //Session represents an authenticated session
 type Session auth.User

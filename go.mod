@@ -1,4 +1,4 @@
-module github.com/korylprince/bisd-device-checkin-server
+module github.com/korylprince/bisd-device-checkin-server/v2
 
 go 1.17
 

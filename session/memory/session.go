@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/gofrs/uuid"
-	"github.com/korylprince/bisd-device-checkin-server/session"
+	"github.com/korylprince/bisd-device-checkin-server/v2/session"
 )
 
 type memorySession struct {

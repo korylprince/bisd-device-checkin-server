@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/korylprince/bisd-device-checkin-server/db"
+	"github.com/korylprince/bisd-device-checkin-server/v2/db"
 )
 
 type txReturnHandlerFunc func(*http.Request, *sql.Tx) (int, interface{})

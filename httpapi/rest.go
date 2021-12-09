@@ -9,8 +9,8 @@ import (
 	"time"
 
 	"github.com/gorilla/mux"
-	"github.com/korylprince/bisd-device-checkin-server/db"
-	"github.com/korylprince/bisd-device-checkin-server/session"
+	"github.com/korylprince/bisd-device-checkin-server/v2/db"
+	"github.com/korylprince/bisd-device-checkin-server/v2/session"
 )
 
 type errResponse struct {

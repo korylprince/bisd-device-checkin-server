@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/korylprince/bisd-device-checkin-server/session"
+	"github.com/korylprince/bisd-device-checkin-server/v2/session"
 )
 
 func (s *Server) authenticate(r *http.Request) (int, interface{}) {

@@ -3,7 +3,7 @@ package ad
 import (
 	"fmt"
 
-	"github.com/korylprince/bisd-device-checkin-server/auth"
+	"github.com/korylprince/bisd-device-checkin-server/v2/auth"
 	adauth "github.com/korylprince/go-ad-auth/v3"
 )
 

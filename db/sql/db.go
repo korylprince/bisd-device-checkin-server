@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 
-	"github.com/korylprince/bisd-device-checkin-server/db"
+	"github.com/korylprince/bisd-device-checkin-server/v2/db"
 )
 
 //DB represents a SQL database

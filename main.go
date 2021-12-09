@@ -7,10 +7,10 @@ import (
 	"time"
 
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/korylprince/bisd-device-checkin-server/auth/ad"
-	"github.com/korylprince/bisd-device-checkin-server/db/sql"
-	"github.com/korylprince/bisd-device-checkin-server/httpapi"
-	"github.com/korylprince/bisd-device-checkin-server/session/memory"
+	"github.com/korylprince/bisd-device-checkin-server/v2/auth/ad"
+	"github.com/korylprince/bisd-device-checkin-server/v2/db/sql"
+	"github.com/korylprince/bisd-device-checkin-server/v2/httpapi"
+	"github.com/korylprince/bisd-device-checkin-server/v2/session/memory"
 	auth "github.com/korylprince/go-ad-auth/v3"
 )
 
