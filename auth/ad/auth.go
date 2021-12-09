@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/korylprince/bisd-device-checkin-server/auth"
-	adauth "gopkg.in/korylprince/go-ad-auth.v2"
+	adauth "github.com/korylprince/go-ad-auth/v3"
 )
 
 //Auth represents an Active Directory authentication mechanism

@@ -11,7 +11,7 @@ import (
 	"github.com/korylprince/bisd-device-checkin-server/db/sql"
 	"github.com/korylprince/bisd-device-checkin-server/httpapi"
 	"github.com/korylprince/bisd-device-checkin-server/session/memory"
-	auth "gopkg.in/korylprince/go-ad-auth.v2"
+	auth "github.com/korylprince/go-ad-auth/v3"
 )
 
 func main() {

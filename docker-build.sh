@@ -5,8 +5,6 @@ version=$1
 
 tag="korylprince/bisd-device-checkin-server"
 
-cred=$(cat ~/.git-credentials)
-
 docker build --no-cache --build-arg "VERSION=$version" --tag "$tag:$version" .
 
 docker push "$tag:$version"
