@@ -49,7 +49,7 @@ func (s *Server) authenticate(r *http.Request) (int, interface{}) {
 	}
 }
 
-func ping(r *http.Request) (int, interface{}) {
+func ping(_ *http.Request) (int, interface{}) {
 	type response struct {
 		Pong bool `json:"pong"`
 	}
